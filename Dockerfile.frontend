@@ -1,0 +1,33 @@
+# Frontend Dockerfile for Azure Container Apps
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY constraints.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r constraints.txt
+
+# Copy application code
+COPY app.py .
+
+# Expose port
+EXPOSE 8501
+
+# Configure Streamlit
+RUN mkdir -p ~/.streamlit && \
+    echo "[server]" > ~/.streamlit/config.toml && \
+    echo "port = 8501" >> ~/.streamlit/config.toml && \
+    echo "address = \"0.0.0.0\"" >> ~/.streamlit/config.toml && \
+    echo "headless = true" >> ~/.streamlit/config.toml && \
+    echo "enableCORS = false" >> ~/.streamlit/config.toml && \
+    echo "enableXsrfProtection = false" >> ~/.streamlit/config.toml
+
+# Run Streamlit
+CMD ["streamlit", "run", "app.py"]
