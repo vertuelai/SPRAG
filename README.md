@@ -1,4 +1,4 @@
-# ADIC SharePoint RAG
+# SharePoint RAG
 
 A modern, AI-powered knowledge retrieval system for SharePoint documents using RAG (Retrieval-Augmented Generation).
 
@@ -121,31 +121,31 @@ chmod +x deploy-container-apps.sh
 
 1. **Create Resource Group**
    ```bash
-   az group create --name rg-adic-sharepoint-rag --location eastus
+   az group create --name rg--sharepoint-rag --location eastus
    ```
 
 2. **Create Container Registry**
    ```bash
-   az acr create --resource-group rg-adic-sharepoint-rag \
-                 --name adicragacr --sku Basic --admin-enabled true
+   az acr create --resource-group rg--sharepoint-rag \
+                 --name ragacr --sku Basic --admin-enabled true
    ```
 
 3. **Build and push images**
    ```bash
-   az acr login --name adicragacr
+   az acr login --name ragacr
    
-   docker build -f Dockerfile.backend -t adicragacr.azurecr.io/adic-rag-backend:latest .
-   docker push adicragacr.azurecr.io/adic-rag-backend:latest
+   docker build -f Dockerfile.backend -t ragacr.azurecr.io/-rag-backend:latest .
+   docker push ragacr.azurecr.io/-rag-backend:latest
    
-   docker build -f Dockerfile.frontend -t adicragacr.azurecr.io/adic-rag-frontend:latest .
-   docker push adicragacr.azurecr.io/adic-rag-frontend:latest
+   docker build -f Dockerfile.frontend -t ragacr.azurecr.io/-rag-frontend:latest .
+   docker push ragacr.azurecr.io/-rag-frontend:latest
    ```
 
 4. **Create Container Apps Environment**
    ```bash
    az containerapp env create \
-     --name adic-rag-env \
-     --resource-group rg-adic-sharepoint-rag \
+     --name -rag-env \
+     --resource-group rg--sharepoint-rag \
      --location eastus
    ```
 
@@ -172,12 +172,12 @@ chmod +x deploy-container-apps.sh
 ```bash
 # Container Apps logs
 az containerapp logs show \
-  --name adic-rag-backend \
-  --resource-group rg-adic-sharepoint-rag
+  --name -rag-backend \
+  --resource-group rg--sharepoint-rag
 
 az containerapp logs show \
-  --name adic-rag-frontend \
-  --resource-group rg-adic-sharepoint-rag
+  --name -rag-frontend \
+  --resource-group rg--sharepoint-rag
 ```
 
 ## 🔒 Security
@@ -189,8 +189,9 @@ az containerapp logs show \
 
 ## 📝 License
 
-Proprietary - ADIC Internal Use Only
+Proprietary -  Internal Use Only
 
 ## 👥 Support
 
-For issues or questions, contact the ADIC Development Team.
+For issues or questions, contact the  Development Team.
+
